@@ -1,1 +1,0 @@
-cmd_/home/ubuntu/driver/hello.ko := ld -r -m elf_x86_64 -z noexecstack --build-id=sha1  -T scripts/module.lds -o /home/ubuntu/driver/hello.ko /home/ubuntu/driver/hello.o /home/ubuntu/driver/hello.mod.o;  true
