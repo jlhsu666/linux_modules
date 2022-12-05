@@ -1,1 +1,0 @@
-cmd_/home/ubuntu/linux_modules/5.real_driver/modules.order := {   echo /home/ubuntu/linux_modules/5.real_driver/driver.ko; :; } | awk '!x[$$0]++' - > /home/ubuntu/linux_modules/5.real_driver/modules.order
