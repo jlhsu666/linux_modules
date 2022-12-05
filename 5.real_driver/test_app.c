@@ -9,10 +9,12 @@
 int8_t write_buf[1024];
 int8_t read_buf[1024];
 
-int main()
+int main(int argc, char* argv[])
 {
     int fd;
     char option;
+    char tmp_str[] = "XXXXXXXXXYYYYYYYYYYYY";
+
     printf("***********************\n");
     printf("***********************\n");
 
@@ -20,6 +22,14 @@ int main()
     if(fd < 0 ){
         printf("Cannot open device file...\n");
         return 0;
+    }
+
+    // If a command-line argument was provided, copy it into the write buffer
+    if (argc == 2) {
+        strncpy(write_buf, argv[1], sizeof(write_buf) - 1);
+    } else {
+        // Otherwise, copy the string stored in tmp_str into the write buffer
+        strncpy(write_buf, tmp_str, sizeof(write_buf) - 1);
     }
 
     while(1){
@@ -32,8 +42,11 @@ int main()
 
         switch(option){
             case '1':
-                printf("Enter the string to write into driver: %c\n", option);
-                scanf(" %[^\t\n]s", write_buf);
+                // If a command-line argument was not provided, prompt the user to enter a string
+                if (argc != 2) {
+                    printf("Enter the string to write into driver: %c\n", option);
+                    scanf(" %[^\t\n]s", write_buf);
+                }
                 printf("Data Writing...");
                 write(fd, write_buf, strlen(write_buf)+1);
                 printf("Done !\n");
@@ -55,7 +68,3 @@ int main()
     }
     close(fd);
 }
-
-
-
-
