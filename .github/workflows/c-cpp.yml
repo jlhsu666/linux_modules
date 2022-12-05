@@ -23,6 +23,8 @@ jobs:
     - name: dmesg
       run: sudo dmesg | tail
     - name: compile user space
+      working-directory: ./5.real_driver
       run: gcc -o test_app test_app.c
     - name: test
+      working-directory: ./5.real_driver
       run: sudo ./test_app
