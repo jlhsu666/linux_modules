@@ -1,0 +1,28 @@
+name: C/C++ CI
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: show pwd      
+      run: pwd    
+    - name: make      
+      working-directory: ./5.real_driver
+      run: make
+    - name: insmod      
+      run: sudo insmod ./5.real_driver/driver.ko
+    - name: dmesg
+      run: sudo dmesg | tail
+    - name: compile user space
+      run: gcc -o test_app test_app.c
+    - name: test
+      run: sudo ./test_app
