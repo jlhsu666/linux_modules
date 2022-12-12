@@ -13,6 +13,8 @@ int main(int argc, char *argv[])
 {
     int fd;
     char option;
+    char tmp_str[] = "XXXXXXXXXYYYYYYYYYYYY";
+
     printf("***********************\n");
     printf("***********************\n");
 
@@ -33,8 +35,11 @@ int main(int argc, char *argv[])
 
         switch(option){
             case '1':
-                printf("Enter the string to write into driver: %c\n", option);
-                scanf(" %[^\t\n]s", write_buf);
+                // If a command-line argument was not provided, prompt the user to enter a string
+                if (argc != 2) {
+                    printf("Enter the string to write into driver: %c\n", option);
+                    scanf(" %[^\t\n]s", write_buf);
+                }
                 printf("Data Writing...");
                 write(fd, write_buf, strlen(write_buf)+1);
                 printf("Done !\n");
@@ -63,7 +68,3 @@ if (argc>1)
 }
     close(fd);
 }
-
-
-
-
