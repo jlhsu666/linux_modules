@@ -9,12 +9,13 @@
 int8_t write_buf[1024];
 int8_t read_buf[1024];
 
-int main()
+int main(int argc, char *argv[])
 {
     int fd;
     char option;
     printf("***********************\n");
     printf("***********************\n");
+
 
     fd = open("/dev/etx_device", O_RDWR);
     if(fd < 0 ){
@@ -22,7 +23,7 @@ int main()
         return 0;
     }
 
-    while(1){
+    while(argc<=1){
         printf("*****Enter Option*********\n");   
         printf("    1. Write    \n");  
         printf("    2. Read    \n");  
@@ -53,6 +54,13 @@ int main()
                 break;                   
         }
     }
+
+if (argc>1)
+{
+    write_buf=(int8_t*)"12345678901234567890aaaaaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbbb";
+    write(fd, write_buf, strlen(write_buf)+1);
+    read(fd, read_buf, 1024);
+}
     close(fd);
 }
 
